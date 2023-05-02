@@ -1,0 +1,60 @@
+{% extends 'master.html' %}
+{% block title %}
+All collections
+{% endblock %}
+
+{% block breadcrum %}All Collections{% endblock %}
+
+{% block content %}
+<style>
+    .item{
+        margin: 20px;
+    }
+    .text{
+        margin-left:10px;
+    }
+    .item.col-lg-2.col-12 i.fa-folder,
+    .item.col-lg-2.col-12 i.fa-file {
+        font-size: 150px; /* default size for desktop */
+    }
+    
+    /* media query for screens smaller than 768px */
+    @media (max-width: 767px) {
+        .item.col-lg-2.col-12 i.fa-folder,
+        .item.col-lg-2.col-12 i.fa-file {
+            font-size: 180px; /* smaller size for mobile */
+        }
+    }
+    
+    .side{
+        margin:5px;
+    }
+    
+    .side{
+        margin:5px;
+    }
+    .error{
+        color:#f61;
+    }
+</style>
+<div class='row all'>
+    {% for m in messages %}
+        <p class='error'>{{m}}</p>
+        <hr>
+    {% endfor %}
+    {% for item in folders %}
+        <div class='item col-lg-2 col-12'>
+            <a class="preview-icon" href='{{url}}{{item}}'><i class="fa fa-folder"></i></a>
+            <h5 class='text'>{{item}}</h5>
+        </div>
+    {% endfor %}
+
+    {% for item in files %}
+    <div class='item col-lg-2 col-12'>
+        <a class="preview-icon"><i class="fa fa-file"></i></a>
+        {% comment %} <iframe src="{{item.1}}" width="100%" height="200px"></iframe> {% endcomment %}
+        <h5 class='text'>{{item.0}}<a class="side download" href='http://127.0.0.1:8000/media/uploads/{{item.0}}' download><i class="fa fa-download"></i></a><a class="side delete" href='/delete/{{item.2}}/{{item.0}}'><i class="fa fa-trash"></i></a></h5>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
